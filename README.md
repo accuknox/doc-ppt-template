@@ -4,20 +4,21 @@ Master AccuKnox brand templates for Word documents and PowerPoint decks, plus th
 build scripts used to turn any draft into an AccuKnox-branded final file. This repo
 is the single source of truth for "how do I brand this doc/deck like AccuKnox."
 
-New to this? Start with [`guide/How_to_Generate_AccuKnox_Branded_Docs_and_PPTs_with_Claude_Code.pdf`](guide/How_to_Generate_AccuKnox_Branded_Docs_and_PPTs_with_Claude_Code.pdf),
+New to this? Start with [`How_to_Generate_AccuKnox_Branded_Docs_and_PPTs_with_Claude_Code.pdf`](How_to_Generate_AccuKnox_Branded_Docs_and_PPTs_with_Claude_Code.pdf),
 a short walkthrough of the Claude Code workflow: clone this repo, attach the file
 you want branded, reference the templates with `@`, and let Claude do the rest.
 
 ## What's in here
 
-The root holds only the three brand template files. Everything else, the build,
-render, and verify tooling, lives in `scripts/`.
+The root holds the three brand template files plus the how-to guide. Everything
+else, the build, render, and verify tooling, lives in `scripts/`.
 
 | File / folder | What it is |
 |---|---|
 | `WORD_TEMPLATE_ACCUKNOX.docx` | Master Word template. Logo + title in the header, page numbers in the footer, brand fonts embedded, and `Title` / `Subtitle` / `Heading1-6` / `Normal` styles pre-configured. |
 | `PPT Template.pptx` | Master PowerPoint template (the full brand deck: title slide, section breaks, comparison tables, stat panels, etc.). Copy this as the base for every new deck. |
 | `AccuKnox_Proposal_Template_BLANK.pptx` | A de-branded copy of the master deck with placeholder text (`[ Client ]`, `[ Title ]`, ...) instead of real content. Use this as your starting point when writing a new build script, so you're not editing the master file directly. |
+| `How_to_Generate_AccuKnox_Branded_Docs_and_PPTs_with_Claude_Code.pdf` | Short walkthrough of the Claude Code branding workflow, prerequisites, steps, an example prompt, and before/after screenshots. |
 | `scripts/build.py` | Worked example: a full python-pptx build script that turns the blank template into a real customer proposal deck. Read this before writing a new one, it shows every helper function you'll need. |
 | `scripts/render.ps1` | Exports every slide of a `.pptx` to PNG via PowerPoint COM automation, for visual review. |
 | `scripts/final_check.py`, `scripts/verify.py` | Scan a built `.pptx` for em/en dashes and other banned writing-style tells (see below). |
