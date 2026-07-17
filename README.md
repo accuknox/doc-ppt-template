@@ -10,14 +10,13 @@ you want branded, reference the templates with `@`, and let Claude do the rest.
 
 ## What's in here
 
-The root holds the three brand template files plus the how-to guide. Everything
+The root holds the two brand template files plus the how-to guide. Everything
 else, the build, render, and verify tooling, lives in `scripts/`.
 
 | File / folder | What it is |
 |---|---|
 | `WORD_TEMPLATE_ACCUKNOX.docx` | Master Word template. Logo + title in the header, page numbers in the footer, brand fonts embedded, and `Title` / `Subtitle` / `Heading1-6` / `Normal` styles pre-configured. |
-| `PPT Template.pptx` | Master PowerPoint template (the full brand deck: title slide, section breaks, comparison tables, stat panels, etc.). Copy this as the base for every new deck. |
-| `AccuKnox_Proposal_Template_BLANK.pptx` | A de-branded copy of the master deck with placeholder text (`[ Client ]`, `[ Title ]`, ...) instead of real content. Use this as your starting point when writing a new build script, so you're not editing the master file directly. |
+| `PPT Template.pptx` | Master PowerPoint template (the full brand deck: title slide, section breaks, comparison tables, stat panels, etc.). This is the one reference PPTX, edit a copy of it in place so all brand assets survive. |
 | `How_to_Generate_AccuKnox_Branded_Docs_and_PPTs_with_Claude_Code.pdf` | Short walkthrough of the Claude Code branding workflow, prerequisites, steps, an example prompt, and before/after screenshots. |
 | `scripts/build.py` | Worked example: a full python-pptx build script that turns the blank template into a real customer proposal deck. Read this before writing a new one, it shows every helper function you'll need. |
 | `scripts/render.ps1` | Exports every slide of a `.pptx` to PNG via PowerPoint COM automation, for visual review. |
@@ -65,20 +64,18 @@ picking your own.
 
 ## Branding a PowerPoint deck
 
-1. Copy `AccuKnox_Proposal_Template_BLANK.pptx` and rename it for your project.
-2. Copy `scripts/build.py` and update the three path variables at the top:
+1. Copy `scripts/build.py` and update the two path variables at the top:
    - `SRC` — the master brand template, `PPT Template.pptx`. Leave as-is.
-   - `OUT` — where your generated `.pptx` should land.
-   - `BLANK` — your renamed copy of the blank template.
-3. Edit slide content using `settext()`, `add_box()`, and the other helpers already
+   - `OUT` — where your generated `.pptx` should land, e.g. a renamed copy for your project.
+2. Edit slide content using `settext()`, `add_box()`, and the other helpers already
    defined in `build.py`, don't add new shapes with hardcoded fonts/colors when an
    existing placeholder or helper will do.
-4. Run `py -3.11 build.py` to generate the deck.
-5. Render it for visual review:
+3. Run `py -3.11 build.py` to generate the deck.
+4. Render it for visual review:
    ```
    powershell -File scripts/render.ps1 -Pptx "path\to\your.pptx" -Out "path\to\render"
    ```
-6. Run the writing-style checks before calling it done:
+5. Run the writing-style checks before calling it done:
    ```
    py -3.11 scripts/final_check.py
    py -3.11 scripts/verify.py
