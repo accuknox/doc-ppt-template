@@ -6,15 +6,17 @@ is the single source of truth for "how do I brand this doc/deck like AccuKnox."
 
 ## What's in here
 
+The root holds only the three brand template files. Everything else, the build,
+render, and verify tooling, lives in `scripts/`.
+
 | File / folder | What it is |
 |---|---|
 | `WORD_TEMPLATE_ACCUKNOX.docx` | Master Word template. Logo + title in the header, page numbers in the footer, brand fonts embedded, and `Title` / `Subtitle` / `Heading1-6` / `Normal` styles pre-configured. |
 | `PPT Template.pptx` | Master PowerPoint template (the full brand deck: title slide, section breaks, comparison tables, stat panels, etc.). Copy this as the base for every new deck. |
-| `AccuKnox_Proposal_Template_BLANK.pptx` | A de-branded copy of the master deck with placeholder text (`[ Client ]`, `[ Title ]`, ...) instead of real content. Use this as your starting point when writing a new `build.py`, so you're not editing the master file directly. |
-| `build.py` | Worked example: a full python-pptx build script that turns the blank template into a real customer proposal deck. Read this before writing a new one, it shows every helper function you'll need. |
-| `render.ps1` | Exports every slide of a `.pptx` to PNG via PowerPoint COM automation, for visual review. |
-| `final_check.py`, `verify.py` | Scan a built `.pptx` for em/en dashes and other banned writing-style tells (see below). |
-| `customer-comparisons/` | Worked example of a Word doc branded from `WORD_TEMPLATE_ACCUKNOX.docx` (an AccuKnox vs. SonarQube Cloud comparison), plus the `build.py` that generated it. |
+| `AccuKnox_Proposal_Template_BLANK.pptx` | A de-branded copy of the master deck with placeholder text (`[ Client ]`, `[ Title ]`, ...) instead of real content. Use this as your starting point when writing a new build script, so you're not editing the master file directly. |
+| `scripts/build.py` | Worked example: a full python-pptx build script that turns the blank template into a real customer proposal deck. Read this before writing a new one, it shows every helper function you'll need. |
+| `scripts/render.ps1` | Exports every slide of a `.pptx` to PNG via PowerPoint COM automation, for visual review. |
+| `scripts/final_check.py`, `scripts/verify.py` | Scan a built `.pptx` for em/en dashes and other banned writing-style tells (see below). |
 
 ## Brand basics
 
@@ -56,12 +58,10 @@ picking your own.
    Open the PDF pages as images and look at them. Check the logo/header on every
    page, footer page numbers, table borders, and that no placeholder text survived.
 
-See `customer-comparisons/build.py` for a full worked example of this pattern.
-
 ## Branding a PowerPoint deck
 
 1. Copy `AccuKnox_Proposal_Template_BLANK.pptx` and rename it for your project.
-2. Copy `build.py` and update the three path variables at the top:
+2. Copy `scripts/build.py` and update the three path variables at the top:
    - `SRC` — the master brand template, `PPT Template.pptx`. Leave as-is.
    - `OUT` — where your generated `.pptx` should land.
    - `BLANK` — your renamed copy of the blank template.
@@ -71,12 +71,12 @@ See `customer-comparisons/build.py` for a full worked example of this pattern.
 4. Run `py -3.11 build.py` to generate the deck.
 5. Render it for visual review:
    ```
-   powershell -File render.ps1 -Pptx "path\to\your.pptx" -Out "path\to\render"
+   powershell -File scripts/render.ps1 -Pptx "path\to\your.pptx" -Out "path\to\render"
    ```
 6. Run the writing-style checks before calling it done:
    ```
-   py -3.11 final_check.py
-   py -3.11 verify.py
+   py -3.11 scripts/final_check.py
+   py -3.11 scripts/verify.py
    ```
    (update the path variable at the top of each to point at your `.pptx`)
 
@@ -108,5 +108,5 @@ Before treating any branded output as final:
 - [ ] Colors match the palette above, no ad hoc colors introduced.
 - [ ] Fonts are `Space Grotesk` throughout, no fallback fonts leaking in.
 - [ ] Tables have visible borders and correctly widthed columns.
-- [ ] Ran the dash/writing-style check (`verify.py` / `final_check.py` for decks; a manual read for docs).
+- [ ] Ran the dash/writing-style check (`scripts/verify.py` / `scripts/final_check.py` for decks; a manual read for docs).
 - [ ] Rendered to PDF/PNG and actually looked at it, don't ship unseen output.
