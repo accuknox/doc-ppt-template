@@ -4,6 +4,10 @@ Master AccuKnox brand templates for Word documents and PowerPoint decks, plus th
 build scripts used to turn any draft into an AccuKnox-branded final file. This repo
 is the single source of truth for "how do I brand this doc/deck like AccuKnox."
 
+New to this? Start with [`guide/How_to_Generate_AccuKnox_Branded_Docs_and_PPTs_with_Claude_Code.pdf`](guide/How_to_Generate_AccuKnox_Branded_Docs_and_PPTs_with_Claude_Code.pdf),
+a short walkthrough of the Claude Code workflow: clone this repo, attach the file
+you want branded, reference the templates with `@`, and let Claude do the rest.
+
 ## What's in here
 
 The root holds only the three brand template files. Everything else, the build,
