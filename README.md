@@ -16,9 +16,9 @@ else, the build, render, and verify tooling, lives in `scripts/`.
 | File / folder | What it is |
 |---|---|
 | `WORD_TEMPLATE_ACCUKNOX.docx` | Master Word template. Logo + title in the header, page numbers in the footer, brand fonts embedded, and `Title` / `Subtitle` / `Heading1-6` / `Normal` styles pre-configured. |
-| `PPT Template.pptx` | Master PowerPoint template (the full brand deck: title slide, section breaks, comparison tables, stat panels, etc.). This is the one reference PPTX, edit a copy of it in place so all brand assets survive. |
+| `PPT Template.pptx` | Master PowerPoint template. A brand layout showcase, one example slide per master layout (Intro Title, Section Title, Standard With Content, ...). This is the one reference PPTX, build decks by adding slides from its layouts. |
 | `How_to_Generate_AccuKnox_Branded_Docs_and_PPTs_with_Claude_Code.pdf` | Short walkthrough of the Claude Code branding workflow, prerequisites, steps, an example prompt, and before/after screenshots. |
-| `scripts/build.py` | Worked example: a full python-pptx build script that turns the blank template into a real customer proposal deck. Read this before writing a new one, it shows every helper function you'll need. |
+| `scripts/build.py` | Historical reference build (a past, populated proposal deck edited by shape index). Read it for the helper-function patterns, it won't run successfully as-is against `PPT Template.pptx`. |
 | `scripts/render.ps1` | Exports every slide of a `.pptx` to PNG via PowerPoint COM automation, for visual review. |
 | `scripts/final_check.py`, `scripts/verify.py` | Scan a built `.pptx` for em/en dashes and other banned writing-style tells (see below). |
 
@@ -64,12 +64,25 @@ picking your own.
 
 ## Branding a PowerPoint deck
 
-1. Copy `scripts/build.py` and update the two path variables at the top:
-   - `SRC` — the master brand template, `PPT Template.pptx`. Leave as-is.
-   - `OUT` — where your generated `.pptx` should land, e.g. a renamed copy for your project.
-2. Edit slide content using `settext()`, `add_box()`, and the other helpers already
-   defined in `build.py`, don't add new shapes with hardcoded fonts/colors when an
-   existing placeholder or helper will do.
+`PPT Template.pptx` is a layout showcase, one example slide per master layout
+(Intro Title, Section Title, Standard With Content, ...). Build your deck by
+copying it and adding slides from those layouts (`prs.slide_layouts`,
+`slides.add_slide(layout)`), not by editing a pre-built content deck.
+
+`scripts/build.py` is a historical reference build (a past, richer proposal
+deck), it's there so you can read the helper functions (`settext()`,
+`add_box()`, `img_fit()`, ...) and copy the patterns. It will not run
+successfully as-is against `PPT Template.pptx`, its slide/shape indices were
+recorded against a different, populated deck.
+
+1. Copy `scripts/build.py` as a starting point and update `SRC` (the master
+   template, `PPT Template.pptx`) and `OUT` (where your generated `.pptx`
+   should land) at the top.
+2. Re-map every `sh(slide_i, shape_i)` lookup against your own slides, don't
+   assume the existing indices are correct, they were written for a
+   different deck. Build content using `settext()`, `add_box()`, and the
+   other helpers already defined, don't add new shapes with hardcoded
+   fonts/colors when an existing placeholder or helper will do.
 3. Run `py -3.11 build.py` to generate the deck.
 4. Render it for visual review:
    ```

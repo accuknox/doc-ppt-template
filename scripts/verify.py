@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
+import os
 from pptx import Presentation
-OUT = r"D:\Atharva\AccuKnox\HelpDocs\utils\ppt-output\<replace-with-output-filename>.pptx"
+OUT = os.path.join(os.path.dirname(os.path.abspath(__file__)), "output", "<replace-with-output-filename>.pptx")
 prs = Presentation(OUT)
 bad = []
 def scan_tf(tf, where):

@@ -1,9 +1,19 @@
 # -*- coding: utf-8 -*-
 """
-Build: Bandhan AMC — Application Security Platform Proposal
-Derived from the AccuKnox master template (utils/PPT TEMPLATE...).
-Edits the real template in place to preserve all brand assets, then
-restructures into a phased SAST proposal deck.
+Historical reference build: Bandhan AMC, Application Security Platform Proposal.
+
+Read this for the helper-function patterns (settext, add_box, img_fit, ...),
+don't run it expecting a working deck out of the box. It was written against
+a richer ~18-slide populated example deck; PPT Template.pptx as it exists in
+this repo is an 11-slide layout showcase (one slide per master layout: Intro
+Title, Section Title, Standard With Content, ...), not that populated deck.
+So most of the slide(n, shape_i) lookups below will raise IndexError against
+the current template. Treat every shape index in this file as illustrative,
+re-map it against whatever template copy you're actually building from.
+
+The phase-3 screenshot gallery also needs project-specific screenshots that
+aren't shipped in this repo; those sections are skipped automatically when
+the screenshots aren't present.
 """
 import copy, shutil, os, glob
 from pptx import Presentation
@@ -13,9 +23,9 @@ from pptx.enum.text import PP_ALIGN, MSO_ANCHOR
 from pptx.oxml.ns import qn
 from PIL import Image as PILImage
 
-SRC   = r"D:\Atharva\AccuKnox\HelpDocs\utils\PPT TEMPLATE - ALWAYS WHEN ASKED TO MAKE PPTS USE THIS.pptx"
-OUT   = r"D:\Atharva\AccuKnox\HelpDocs\utils\ppt-output\Bandhan_AMC_Application_Security_Proposal.pptx"
-BLANK = r"D:\Atharva\AccuKnox\HelpDocs\utils\ppt-output\AccuKnox_Proposal_Template_BLANK.pptx"
+HERE  = os.path.dirname(os.path.abspath(__file__))
+SRC   = os.path.join(HERE, "..", "PPT Template.pptx")
+OUT   = os.path.join(HERE, "output", "Bandhan_AMC_Application_Security_Proposal.pptx")
 
 # ---- Brand colors -------------------------------------------------
 NAVY      = RGBColor(0x11,0x20,0x6D)
@@ -111,16 +121,17 @@ def rounded_badge(slide, x, y, w, h, text, fill, txtcolor=WHITE, size=10):
     return sp
 
 # ===================================================================
+os.makedirs(os.path.dirname(OUT), exist_ok=True)
 shutil.copy(SRC, OUT)
 prs = Presentation(OUT)
 S = list(prs.slides)
 def sh(slide_i, shape_i):   # 1-based slide, 0-based shape
     return S[slide_i-1].shapes[shape_i]
 
-# ---- Phase 3 screenshots ------------------------------------------
-ASSETS = r"D:\Atharva\AccuKnox\HelpDocs\proposal-output\assets"
+# ---- Phase 3 screenshots (project-specific, not shipped in this repo) ----
+ASSETS = os.path.join(HERE, "output", "assets")
 os.makedirs(ASSETS, exist_ok=True)
-_shots = sorted(glob.glob(r"D:\Atharva\AccuKnox\HelpDocs\utils\sast-images-phase3-cd*"))
+_shots = sorted(glob.glob(os.path.join(HERE, "sast-images-phase3-cd*")))
 # crop the product-name breadcrumb strip off shot 0
 IMG = {i: _shots[i] for i in range(len(_shots))}
 if _shots:
@@ -153,9 +164,7 @@ for _p in t0.text_frame.paragraphs:
     for _r in _p.runs:
         _r.font.size = Pt(22)
 settext(sh(1,1), "")   # blank the old date placeholder
-# remove Danube logo picture [3], add client name + subtitle
-danube = sh(1,3)
-danube._element.getparent().remove(danube._element)
+# add client name + subtitle (current template's title slide has no extra logo shape to strip)
 add_box(S[0], 0.76, 1.12, 5.2, 0.56, "BANDHAN AMC", 29, color=WHITE, bold=True, align=PP_ALIGN.LEFT)
 add_box(S[0], 0.78, 1.73, 5.2, 0.30, "Asset Management Company", 12.5, color=RGBColor(0xB8,0xC4,0xE8), bold=False, align=PP_ALIGN.LEFT)
 add_box(S[0], 0.78, 3.26, 5.6, 0.30, "SAST  ·  Secrets Scanning  ·  SBOM", 12, color=RGBColor(0xCE,0xD8,0xF2), bold=True, align=PP_ALIGN.LEFT)
@@ -302,12 +311,13 @@ settext(sh(11,20), "03"); settext(sh(11,21), "Richer Dashboards")
 settext(sh(11,22), "Executive and engineer views with export-ready ASPM reporting for audit and stakeholders.")
 for n in [10,15,20]:
     run_color(sh(11,n), PURPLE)
-# right column -> clear SCA cards, drop in a hero product screenshot
-_els = [sh(11,_i)._element for _i in [23,24,25,26,27,28,29,30,31,32,33,34,35]]
-for _e in _els:
-    _e.getparent().remove(_e)
-add_box(S[10], 5.25, 1.18, 4.3, 0.3, "Product Preview", 13, color=NAVY, bold=True, align=PP_ALIGN.LEFT)
-img_fit(S[10], IMG[3], 5.2, 1.55, 4.4, 2.45, "Code Analysis dashboard:  noise reduced 47%")
+# right column -> clear SCA cards, drop in a hero product screenshot (needs screenshots, see IMG above)
+if len(_shots) > 3:
+    _els = [sh(11,_i)._element for _i in [23,24,25,26,27,28,29,30,31,32,33,34,35]]
+    for _e in _els:
+        _e.getparent().remove(_e)
+    add_box(S[10], 5.25, 1.18, 4.3, 0.3, "Product Preview", 13, color=NAVY, bold=True, align=PP_ALIGN.LEFT)
+    img_fit(S[10], IMG[3], 5.2, 1.55, 4.4, 2.45, "Code Analysis dashboard:  noise reduced 47%")
 settext(sh(11,6), "Timeline")
 settext(sh(11,7), "Targeted for general availability within 2-3 months; feature previews available on request.")
 set_fill(sh(11,6), PURPLE)
@@ -422,16 +432,18 @@ def build_gallery(slide, title, intro, big, smalls):
     for (idx, cap), y in zip(smalls, [1.32, 3.07]):   # two supporting shots, stacked right
         img_fit(slide, IMG[idx], 6.05, y, 3.5, 1.4, cap)
 
-build_gallery(S[15], "Phase 3:  Product Preview",
-              "From scan results to vulnerability detail and AI-assisted remediation.",
-              (0, "Repository findings overview"),
-              [(1, "Vulnerability detail with CWE mapping"),
-               (2, "AI-assisted remediation")])
-build_gallery(S[16], "Phase 3:  Product Preview  (2 / 2)",
-              "Deep context: data-flow, code-flow and risk-based prioritization.",
-              (4, "Data-flow graph (source to sink)"),
-              [(5, "Code-flow analysis"),
-               (6, "Risk analysis & business impact")])
+if len(_shots) >= 3:
+    build_gallery(S[15], "Phase 3:  Product Preview",
+                  "From scan results to vulnerability detail and AI-assisted remediation.",
+                  (0, "Repository findings overview"),
+                  [(1, "Vulnerability detail with CWE mapping"),
+                   (2, "AI-assisted remediation")])
+if len(_shots) >= 7:
+    build_gallery(S[16], "Phase 3:  Product Preview  (2 / 2)",
+                  "Deep context: data-flow, code-flow and risk-based prioritization.",
+                  (4, "Data-flow graph (source to sink)"),
+                  [(5, "Code-flow analysis"),
+                   (6, "Risk analysis & business impact")])
 
 # ===================================================================
 # Delete slide 4 (redundant platform matrix); reorder, weaving galleries after Phase 3.
@@ -454,25 +466,3 @@ for el in keep_els:
 
 prs.save(OUT)
 print("Saved proposal:", OUT, "slides:", len(list(prs.slides)))
-
-# ===================================================================
-# Also emit a neutral BLANK template (light Danube de-branding).
-prs2 = Presentation(SRC)
-T = list(prs2.slides)
-def t_sh(si, xi): return T[si-1].shapes[xi]
-settext(t_sh(1,0), "[ Presentation Title ]")
-settext(t_sh(1,1), "[ Date ]")
-repl = {
-    6:  {0:"[ Client ]:  Before vs After"},
-    8:  {27:"[ Client ] - Business Use Cases", 12:"[ Headline ]"},
-    9:  {0:"Business Case 01  ·  [ Title ]"},
-    10: {0:"Business Case 02  ·  [ Title ]"},
-    11: {0:"Business Case 03  ·  [ Title ]"},
-    13: {0:"[ Customer ] - Case Study"},
-}
-for si, m in repl.items():
-    for xi, val in m.items():
-        try: settext(t_sh(si,xi), val)
-        except Exception: pass
-prs2.save(BLANK)
-print("Saved blank template:", BLANK)

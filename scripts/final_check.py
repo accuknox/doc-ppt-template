@@ -1,7 +1,8 @@
 # -*- coding: utf-8 -*-
+import os
 from pptx import Presentation
 NL = chr(10)
-OUTPUT_PPTX = r"D:\Atharva\AccuKnox\HelpDocs\utils\ppt-output\<replace-with-output-filename>.pptx"
+OUTPUT_PPTX = os.path.join(os.path.dirname(os.path.abspath(__file__)), "output", "<replace-with-output-filename>.pptx")
 p = Presentation(OUTPUT_PPTX)
 slides = list(p.slides)
 print("SLIDES:", len(slides))

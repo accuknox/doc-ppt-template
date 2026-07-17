@@ -1,6 +1,6 @@
 param(
-  [string]$Pptx = "D:\Atharva\AccuKnox\HelpDocs\utils\ppt-output\<replace-with-output-filename>.pptx",
-  [string]$Out  = "D:\Atharva\AccuKnox\HelpDocs\utils\ppt-output\render"
+  [string]$Pptx = (Join-Path $PSScriptRoot "output\<replace-with-output-filename>.pptx"),
+  [string]$Out  = (Join-Path $PSScriptRoot "output\render")
 )
 New-Item -ItemType Directory -Force -Path $Out | Out-Null
 Get-ChildItem -Path $Out -Filter *.png -ErrorAction SilentlyContinue | Remove-Item -Force
