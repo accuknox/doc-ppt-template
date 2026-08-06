@@ -3,3 +3,9 @@ __pycache__/
 render/
 scripts/output/
 *.tmp
+
+# Per-document build intermediates (inlined HTML, downloaded imagery, page renders).
+# The finished PDF/DOCX/PPTX stays at the top of output/, and output/assets/ is the
+# shared image library the build scripts read from, so both stay tracked.
+output/*/
+!output/assets/
