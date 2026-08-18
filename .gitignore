@@ -9,3 +9,6 @@ scripts/output/
 # shared image library the build scripts read from, so both stay tracked.
 output/*/
 !output/assets/
+
+# PowerPoint / Word lock files
+~$*

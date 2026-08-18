@@ -98,6 +98,44 @@ before picking your own.
 copying it and adding slides from those layouts (`prs.slide_layouts`,
 `slides.add_slide(layout)`), not by editing a pre-built content deck.
 
+### The cover and closing slide are fixed. Never redesign them.
+
+Two layouts already carry finished artwork. Only the words change.
+
+| Layout | Name | Use |
+|---|---|---|
+| `slide_layouts[0]` | `AccuKnox Intro Title` | **Front cover, always.** Full lockup with the "Secure Code to Cognition" tagline, the three badge groups (Certified & Accredited by / As Featured In / Available On), and the product screenshot collage. |
+| `slide_layouts[1]` | `AccuKnox Section Title` | **Back cover, always.** Centered lockup, the "Certified by" badge row, www.AccuKnox.com. |
+| `slide_layouts[2]` | `AccuKnox Section Title Basic` | Part dividers only. Dark dotted wave. |
+| `slide_layouts[4]` | `Standard No Content` | Content slides. Navy title band, white body. |
+
+Build them with the `_akdeck` helpers, because the placeholders inherit black text
+and need the color and size set:
+
+```python
+from _akdeck import cover_slide, closing_slide
+
+cover_slide(prs, "Azure Cloud Security and AI Posture Report",
+            scope=[("30", "Azure subscriptions"), ("11,221", "Cloud assets"),
+                   ("31,439", "Active findings")])
+# ... content slides ...
+closing_slide(prs)          # SEE US IN ACTION / support@accuknox.com
+```
+
+Never open or close a deck on `slide_layouts[2]`. That dark dotted wave is the
+part-divider background, so a deck that opens on it makes slide 1 and slide 2 look
+like the same slide and the cover stops catching the eye. Reviewers have flagged
+this on shipped decks.
+
+Keep the cover light. The lockup, badges and screenshots carry the brand, so the
+words are the title plus at most one line or a short row of scope numbers. Do not
+add a second logo in the corner, a category eyebrow like `AZURE · CSPM · CNAPP`, a
+"prepared by" line, a rule, or a data-basis footnote. Put the data basis on the
+first content slide.
+
+Full rules, including the newline bug that only shows up in PDF export, are in
+[`CLAUDE.md`](CLAUDE.md).
+
 `scripts/build.py` is a historical reference build (a past, richer proposal
 deck), it's there so you can read the helper functions (`settext()`,
 `add_box()`, `img_fit()`, ...) and copy the patterns. It will not run
@@ -164,6 +202,12 @@ Before placing a logo anywhere:
 
 Before treating any branded output as final:
 
+- [ ] Deck opens on `slide_layouts[0]` and closes on `slide_layouts[1]`, never on the
+      dark dotted-wave divider layout.
+- [ ] Cover holds the title plus at most one line or one scope row. No corner logo,
+      no category eyebrow, no "prepared by" line, no data-basis footnote.
+- [ ] Exported a PDF and looked at it, not only the PNGs. A raw newline inside a run
+      renders fine as PNG and as a tofu box in PDF.
 - [ ] Logo and header text render correctly on every page/slide.
 - [ ] Footer page numbers present (Word).
 - [ ] No placeholder text (`[ Client ]`, `Document Title`, `Subheading 1`, ...) survived.
