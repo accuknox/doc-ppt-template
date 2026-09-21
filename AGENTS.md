@@ -91,13 +91,6 @@ python "D:\Atharva\NOTES\SCRIPTS\slop\score.py" "<extracted-deck-text>.md"
 CRIT must reach 0. The `readability-fragment` warnings on chart labels and headings
 are expected and do not block.
 
-## The keynote skill
-
-`.claude/skills/accuknox-keynote-deck/` carries the dark keynote system: the `akslides`
-runtime with thirteen layouts, the YouTube embed recipe, the QA gate, the source-deck
-extractor and the rebrand workflow. Read its `SKILL.md` before you build or rebrand a
-deck in that style. `scripts/build_tcts_ai_decks.py` is the worked example it came from.
-
 ## Reference builds
 
 `scripts/build_indigo_azure_posture.py` is the cleanest current example. It uses the
