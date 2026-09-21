@@ -4,11 +4,24 @@ render/
 scripts/output/
 *.tmp
 
-# Per-document build intermediates (inlined HTML, downloaded imagery, page renders).
-# The finished PDF/DOCX/PPTX stays at the top of output/, and output/assets/ is the
-# shared image library the build scripts read from, so both stay tracked.
+# Built documents. The build script plus the tracked imagery reproduces any of
+# them, so the binaries stay out of git.
+output/*.pptx
+output/*.docx
+output/*.pdf
+
+# Per-document build intermediates (inlined HTML, downloaded imagery, page
+# renders). output/assets/ is the shared screen library the build scripts read
+# from, so it stays tracked.
 output/*/
 !output/assets/
+
+# Session scratch: extracted source decks, crops, contact sheets.
+work/
+
+# Scraped pages and internal documents that are not deck material.
+page.html
+15-SEP-DOCs/
 
 # PowerPoint / Word lock files
 ~$*
