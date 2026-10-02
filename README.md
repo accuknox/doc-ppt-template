@@ -23,6 +23,10 @@ the build, render, and verify tooling, lives in `scripts/`.
 | `assets/accuknox-brand-guidelines.pdf` | The official one-page brand guidelines: logo variants, clear space, color palette, typography. Source of truth if this README and the PDF ever disagree. |
 | `scripts/build.py` | Historical reference build (a past, populated proposal deck edited by shape index). Read it for the helper-function patterns, it won't run successfully as-is against `PPT Template.pptx`. |
 | `scripts/render.ps1` | Exports every slide of a `.pptx` to PNG via PowerPoint COM automation, for visual review. |
+| `assets/icons/` | Open-source icon library: `brand/` holds Devicon (MIT) and Simple Icons (CC0) logos, `ui/` holds Tabler (MIT) glyphs. See `assets/icons/LICENSES.md`. |
+| `scripts/fetch_icons.py` | Pulls a missing icon into `assets/icons/` by name. |
+| `scripts/_aksvg.py` | SVG diagram kit with brand tokens and real icons, rendered to PNG through headless Edge. |
+| `scripts/deck_qa.py` | Visual and readability gate: font floor, speaker notes, off-slide shapes, text-only slides, Google Slides safety. |
 | `scripts/final_check.py`, `scripts/verify.py` | Scan a built `.pptx` for em/en dashes and other banned writing-style tells (see below). |
 
 ## Logos
@@ -161,6 +165,14 @@ recorded against a different, populated deck.
    py -3.11 scripts/verify.py
    ```
    (update the path variable at the top of each to point at your `.pptx`)
+
+## Every Deck Reads as Pictures First
+
+Every deck should read as pictures first: SVG diagrams, icon grids, real logos,
+big type, and fine print in the speaker notes. Follow
+[`.claude/skills/accuknox-visual-deck/SKILL.md`](.claude/skills/accuknox-visual-deck/SKILL.md),
+and copy `scripts/build_sampath_secrets_manager.py` with `scripts/sampath_svg.py`
+as the starting point. Run `scripts/deck_qa.py` before you render.
 
 ## Writing style rules (applies to every branded doc/deck)
 

@@ -91,6 +91,25 @@ python "D:\Atharva\NOTES\SCRIPTS\slop\score.py" "<extracted-deck-text>.md"
 CRIT must reach 0. The `readability-fragment` warnings on chart labels and headings
 are expected and do not block.
 
+### 7. Make every deck visual
+
+Text-only slides are a draft. Every deck ships icon-heavy and readable, built the
+way the Sampath Bank Secrets Manager deck was. The full method is in
+`.claude/skills/accuknox-visual-deck/SKILL.md`. The short version:
+
+- Every content slide carries a picture: an SVG diagram, an icon grid or a row of
+  logos. Every list item gets an icon, and every named product gets its real logo
+  from `assets/icons/`. Run `scripts/fetch_icons.py` for a missing one.
+- Draw each architecture, flow, HA, DR or pipeline as an SVG with `scripts/_aksvg.py`.
+  Render it, look at it, and fix it two or three times before it ships.
+- Body text is 11 pt or more and nothing goes under 9 pt. A slide holds 70 words
+  or fewer. Fine print, sources and exact values go into the speaker notes, and a
+  pass that cuts text from a slide moves those facts into the notes.
+- Slide 2 is an agenda of icon tiles. Backup material goes on hidden slides.
+  Unconfirmed facts get a red `todo_panel()`, never a guess.
+- Run `py -3.11 scripts/deck_qa.py output/<deck>.pptx --gslides` before you render.
+  It must end with 0 fail.
+
 ## The keynote skill
 
 `.claude/skills/accuknox-keynote-deck/` carries the dark keynote system: the `akslides`
@@ -100,6 +119,9 @@ deck in that style. `scripts/build_tcts_ai_decks.py` is the worked example it ca
 
 ## Reference builds
 
-`scripts/build_indigo_azure_posture.py` is the cleanest current example. It uses the
+`scripts/build_sampath_secrets_manager.py`, with `scripts/sampath_svg.py`, is the
+reference for a visual deck: icons, SVG diagrams, notes, hidden slides and the
+Google Slides upload. `scripts/build_indigo_azure_posture.py` is the cleanest
+example of a table-heavy report. It uses the
 two cover helpers, the `_akdeck` primitives, native tables with real borders, and it
 passes the punctuation, banned-word and sentence-length checks.

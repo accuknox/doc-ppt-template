@@ -272,7 +272,7 @@ def code_block(slide, x, y, w, h, lines, size=8.6, fill=NAVY_DK, color=None,
     box(slide, x, y, w, h, fill=fill, shape=MSO_SHAPE.ROUNDED_RECTANGLE, radius=0.05)
     ty = y
     if title:
-        box(slide, x+0.14, y+0.06, w-0.28, 0.24, text=title, size=8, color=SECOND,
+        box(slide, x+0.14, y+0.06, w-0.28, 0.24, text=title, size=9, color=SECOND,
             bold=True, anchor=MSO_ANCHOR.MIDDLE)
         ty = y + 0.28
     sp = box(slide, x+0.14, ty+0.04, w-0.28, h-(ty-y)-0.1, anchor=MSO_ANCHOR.TOP,
@@ -401,3 +401,114 @@ def closing_slide(prs, headline="SEE US IN ACTION",
     else:
         _drop_ph(s, 1)
     return s
+
+
+# ===================================================================
+# VISUAL LAYER: real icons, SVG diagrams, notes, placeholders
+# ===================================================================
+# Every deck should read as pictures first and words second. These helpers put
+# open-source icons (assets/icons, rendered through _aksvg) and SVG diagrams on
+# a slide, push fine print into the speaker notes, and mark unknown facts in red.
+# CLAUDE.md, "Visual decks", has the rules. scripts/build_sampath_secrets_manager.py
+# is the worked example.
+#
+# The old icon() above draws Segoe MDL2 glyphs. They look fine in PowerPoint and
+# turn into empty boxes in Google Slides, so new decks use icon_img() instead.
+
+from pptx.enum.dml import MSO_LINE_DASH_STYLE as _DASH
+
+
+def google_safe():
+    """Call once per build when the deck may go to Google Slides. JetBrains Mono
+    is a Google Font, Consolas is not."""
+    global MONO
+    MONO = "JetBrains Mono"
+
+
+def icon_img(slide, name, x, y, s, color=None):
+    """Place an icon PNG. `name` is a Tabler glyph (ui) or a brand logo.
+    color: a hex string such as '#0046FF' for ui glyphs. Brand logos keep their colors."""
+    import _aksvg
+    col = color or "#0046FF"
+    p = _aksvg.icon_png(name, col)
+    return slide.shapes.add_picture(p, Inches(x), Inches(y), Inches(s), Inches(s))
+
+
+def icon_tile(slide, name, x, y, s, bg=None):
+    """A rounded brand-blue square with a white glyph. The default way to put an
+    icon next to a heading."""
+    bg = PRIMARY if bg is None else bg
+    box(slide, x, y, s, s, fill=bg, shape=MSO_SHAPE.ROUNDED_RECTANGLE, radius=0.22)
+    pad = s * 0.16
+    return icon_img(slide, name, x + pad, y + pad, s - 2 * pad, color="#FFFFFF")
+
+
+def icon_card(slide, x, y, w, h, icon, head, body, tag=None, tag_fill=None, tag_color=None,
+              hsize=13.5, bsize=11.5, accent=None):
+    """White card: icon tile, bold heading, one short line, optional status pill.
+    Use it for grids of components, steps, jobs, features."""
+    box(slide, x, y, w, h, fill=WHITE, line=GREY_BD, line_w=1.0,
+        shape=MSO_SHAPE.ROUNDED_RECTANGLE, radius=0.07)
+    icon_tile(slide, icon, x + 0.14, y + 0.16, 0.56, bg=accent)
+    box(slide, x + 0.82, y + 0.12, w - 0.92, 0.36, text=head, size=hsize, color=NAVY,
+        bold=True, anchor=MSO_ANCHOR.MIDDLE, ml=0)
+    box(slide, x + 0.82, y + 0.48, w - 0.92, h - 0.56, text=body, size=bsize, color=MUTE, ml=0)
+    if tag:
+        pill(slide, x + w - 1.32, y + h - 0.36, 1.2, 0.26, tag,
+             fill=tag_fill or LAV, tcolor=tag_color or NAVY, size=9.5)
+
+
+def logo_row(slide, items, x, y, w, size=0.56, label_size=10.5):
+    """A row of brand logos with a label under each: [('java-original', 'Java'), ...]."""
+    step = w / len(items)
+    for i, (name, lab) in enumerate(items):
+        cx = x + i * step + (step - size) / 2
+        icon_img(slide, name, cx, y, size)
+        box(slide, x + i * step, y + size + 0.02, step, 0.3, text=lab, size=label_size,
+            color=NAVY, bold=True, align=PP_ALIGN.CENTER)
+
+
+def callout(slide, x, y, w, h, icon, text, size=12.5, fill=None, color=None, icolor=None):
+    """A tinted strip with an icon and one bold sentence. The takeaway line."""
+    box(slide, x, y, w, h, fill=fill or LAV, shape=MSO_SHAPE.ROUNDED_RECTANGLE, radius=0.18,
+        text=text, size=size, color=color or NAVY, bold=True, anchor=MSO_ANCHOR.MIDDLE,
+        ml=0.66, mr=0.16)
+    icon_img(slide, icon, x + 0.16, y + h / 2 - 0.2, 0.4, color=icolor)
+
+
+def todo_panel(slide, x, y, w, h, head, body, size=11):
+    """Red dashed panel for a fact nobody has confirmed yet. Never guess a fact,
+    draw this instead and name who fills it."""
+    b = box(slide, x, y, w, h, fill=RED_LT, line=RED, line_w=1.25,
+            shape=MSO_SHAPE.ROUNDED_RECTANGLE, radius=0.08, anchor=MSO_ANCHOR.MIDDLE,
+            ml=0.62, mr=0.14, mt=0.06, mb=0.06)
+    b.line.dash_style = _DASH.DASH
+    para(b, head, size=size, color=RED, bold=True, first=True, space_after=2)
+    para(b, body, size=size, color=INK, space_after=0)
+    icon_img(slide, "alert-triangle", x + 0.14, y + h / 2 - 0.2, 0.4, color="#C80019")
+    return b
+
+
+def diagram(slide, png, x, y, w):
+    """Place a rendered diagram at width w, keeping its aspect. Returns the bottom y."""
+    iw, ih = PILImage.open(png).size
+    h = w * ih / iw
+    slide.shapes.add_picture(png, Inches(x), Inches(y), Inches(w), Inches(h))
+    return y + h
+
+
+def label(slide, x, y, w, text, size=9.5, color=None, h=0.26):
+    """A small bold caps-style label above a group."""
+    return box(slide, x, y, w, h, text=text, size=size, color=color or PRIMARY, bold=True,
+               anchor=MSO_ANCHOR.MIDDLE, ml=0, mr=0)
+
+
+def notes(slide, text):
+    """Speaker notes. Fine print, sources, image tags, exact values and the
+    talk track go here, never in 8 pt text on the slide."""
+    slide.notes_slide.notes_text_frame.text = text.strip()
+
+
+def hide_slide(slide):
+    """Keep a slide in the file but skip it in the show. Google Slides keeps the flag."""
+    slide._element.set("show", "0")
