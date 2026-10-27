@@ -123,7 +123,7 @@ def main():
   @page {{ size: A4 landscape; margin: 0; }}
   * {{ box-sizing: border-box; }}
   body {{
-    margin: 0; font-family: "Space Grotesk", "Segoe UI", sans-serif;
+    margin: 0; font-family: "Inter", "Segoe UI", sans-serif;
     color: #1B1F3B; font-size: 9.4pt; line-height: 1.42; background: #fff;
   }}
   .page {{

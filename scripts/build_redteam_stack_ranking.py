@@ -284,7 +284,7 @@ def img(path, width=1500):
 CSS = """
 @page { size: A4 landscape; margin: 0; }
 * { box-sizing: border-box; margin: 0; padding: 0; }
-html, body { font-family: 'Space Grotesk', 'Inter', 'Segoe UI', sans-serif; color: INK;
+html, body { font-family: 'Inter', 'Segoe UI', sans-serif; color: INK;
   -webkit-print-color-adjust: exact; print-color-adjust: exact; }
 a { color: BLUE; text-decoration: none; }
 .pg { width: 297mm; height: 210mm; padding: 11mm 13mm; position: relative;

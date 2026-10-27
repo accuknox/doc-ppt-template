@@ -50,7 +50,7 @@ A = {
 CSS = """
 @page { size: A4; margin: 0; }
 * { box-sizing: border-box; margin: 0; padding: 0; }
-html, body { font-family: 'Space Grotesk', 'Inter', 'Segoe UI', sans-serif;
+html, body { font-family: 'Inter', 'Segoe UI', sans-serif;
   color: #1A1D2E; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
 
 .page { position: relative; width: 210mm; height: 297mm; overflow: hidden;

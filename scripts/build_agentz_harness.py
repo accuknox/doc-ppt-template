@@ -6,7 +6,7 @@ Rebuilds the source draft ("AccuKnox AgentZ Harness.pptx", a Google Slides expor
 on the AccuKnox master template at 10 x 5.625 in.
 
 Changes on top of the source:
-  - AccuKnox master layouts, palette, logo and Space Grotesk throughout.
+  - AccuKnox master layouts, palette, logo and Inter throughout.
   - The nine flat card images from the source are rebuilt as native shapes, so
     every word stays editable and the type matches the brand.
   - The four hand-drawn architecture diagrams are redrawn on the brand grid.

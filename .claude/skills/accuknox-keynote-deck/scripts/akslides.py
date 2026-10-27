@@ -55,9 +55,9 @@ class T:
     INK = RGBColor(0x1B, 0x22, 0x3B)        # body text on white
     MUTE = RGBColor(0x5A, 0x63, 0x7D)
     SOFT = RGBColor(0xB8, 0xC4, 0xE8)       # secondary text on navy
-    FONT = "Space Grotesk"
-    MED = "Space Grotesk Medium"
-    SEMI = "Space Grotesk SemiBold"
+    FONT = "Inter"
+    MED = "Inter"
+    SEMI = "Inter SemiBold"
 
 
 SW, SH = 10.0, 5.625     # slide size in inches, 16:9

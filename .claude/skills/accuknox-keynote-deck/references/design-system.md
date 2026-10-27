@@ -42,7 +42,7 @@ soft edge. Without that glow the screens read as pasted rectangles.
 ```
 slide          10.0 x 5.625 in (16:9)
 side margin    0.55 in, and nothing important crosses it
-title row      y 0.40, height 1.1, 22 pt Space Grotesk Medium
+title row      y 0.40, height 1.1, 22 pt Inter Medium
 body starts    y 1.45
 footnote       y 5.34, 8 pt, the source line
 logo           top right, 1.2 in wide, y 0.46
@@ -63,10 +63,11 @@ makes the slide feel like a window rather than a page.
 | Body | 11 to 12 pt | SemiBold for heads, Regular for prose | Rail heads, node labels |
 | Caption | 7 to 9.5 pt | Regular, or SemiBold with 1.2 pt tracking for labels | Subs, chips, footnotes |
 
-Space Grotesk carries all of it. Medium and SemiBold are separate installed
-families on this machine, so `"Space Grotesk Medium"` is a real typeface name
-rather than a weight flag. `finalize.ps1` embeds them, which is what keeps the
-deck intact on a machine that never installed the font.
+Inter carries all of it, and no other typeface is allowed. SemiBold is a
+separate installed family, so `"Inter SemiBold"` is a real typeface name rather
+than a weight flag. Medium is set as plain `"Inter"` because the Medium file is
+not installed. `finalize.ps1` embeds the fonts, which is what keeps the
+deck intact on a machine that never installed Inter.
 
 ## Every Slide Answers One Question
 

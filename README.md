@@ -47,8 +47,7 @@ variants not included here are in `assets/accuknox-brand-guidelines.pdf`.
 ## Brand basics
 
 **Fonts**
-- Primary: `Space Grotesk` (Regular, Medium, Semibold, Bold). Embedded directly in `WORD_TEMPLATE_ACCUKNOX.docx`, no install needed when you edit that file in Word.
-- Fallback: `Inter` (Regular, Medium, Semibold, Bold), use only where Space Grotesk isn't available.
+- Only font: `Inter` (Regular, Medium, Semibold, Bold). Never use Space Grotesk or any other face. Embedded directly in `WORD_TEMPLATE_ACCUKNOX.docx`, no install needed when you edit that file in Word. Font files for scripts live in `assets/fonts/`.
 
 **Colors**
 
@@ -224,7 +223,7 @@ Before treating any branded output as final:
 - [ ] Footer page numbers present (Word).
 - [ ] No placeholder text (`[ Client ]`, `Document Title`, `Subheading 1`, ...) survived.
 - [ ] Colors match the palette above, no ad hoc colors introduced.
-- [ ] Fonts are `Space Grotesk` throughout, no fallback fonts leaking in.
+- [ ] Fonts are `Inter` throughout, no fallback fonts leaking in.
 - [ ] Tables have visible borders and correctly widthed columns.
 - [ ] Ran the dash/writing-style check (`scripts/verify.py` / `scripts/final_check.py` for decks; a manual read for docs).
 - [ ] Rendered to PDF/PNG and actually looked at it, don't ship unseen output.

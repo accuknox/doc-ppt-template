@@ -441,9 +441,9 @@ def why(b):
 CSS = """
 @page { size: A4; margin: 11mm 12mm 13mm;
   @bottom-right { content: "Page " counter(page) " of " counter(pages);
-    font-family: 'Space Grotesk', sans-serif; font-size: 7pt; color: MUTE; } }
+    font-family: 'Inter', sans-serif; font-size: 7pt; color: MUTE; } }
 * { box-sizing: border-box; margin: 0; padding: 0; }
-html, body { font-family: 'Space Grotesk', 'Segoe UI', sans-serif; color: INK;
+html, body { font-family: 'Inter', 'Segoe UI', sans-serif; color: INK;
   -webkit-print-color-adjust: exact; print-color-adjust: exact; }
 a { color: BLUE; text-decoration: none; }
 

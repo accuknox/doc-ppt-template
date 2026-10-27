@@ -8,7 +8,7 @@ from the source deck is kept. The source deck holds no pictures and no charts, s
 every visual here is a native PowerPoint shape, table or text box, all editable.
 
 Changes on top of the source:
-  - AccuKnox master layouts, palette, logo and Space Grotesk throughout.
+  - AccuKnox master layouts, palette, logo and Inter throughout.
   - Two part dividers, so the CSPM report and the AI report read as one deck.
   - The rainbow bar palette is replaced with the brand ramp. Blue for volume,
     red for High-severity, green for good news.

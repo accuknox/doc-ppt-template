@@ -27,7 +27,7 @@ PRIMARY = "0046FF"
 BORDER = "C4CCDE"
 GREY_FILL = "EEF0F6"
 MUTED = "5A6478"
-BODY_FONT = "Space Grotesk"
+BODY_FONT = "Inter"
 
 DOC_TITLE = "AccuKnox Control Plane Hardware Pre-requisites  |  Rakuten"
 

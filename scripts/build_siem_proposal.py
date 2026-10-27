@@ -18,7 +18,7 @@ NAVY = "11206D"
 PRIMARY = "0046FF"
 BORDER = "C4CCDE"
 GREY_FILL = "EEF0F6"
-BODY_FONT = "Space Grotesk"
+BODY_FONT = "Inter"
 
 DOC_TITLE = "AccuKnox SIEM Proposal"
 

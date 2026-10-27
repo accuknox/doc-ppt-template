@@ -10,7 +10,7 @@ Every task, owner, date and status from the source is kept. Nothing is invented.
 The two workstreams keep one slide each, because the brief asked for three slides.
 
 Changes on top of the source:
-  - AccuKnox master layouts, palette and Space Grotesk throughout.
+  - AccuKnox master layouts, palette and Inter throughout.
   - Slide 1 is the AccuKnox cover layout, co-branded with the Rakuten wordmark on
     a white pill under the title. The AccuKnox lockup comes from the layout.
   - Each workstream slide gains a status count strip and a completion bar, so the

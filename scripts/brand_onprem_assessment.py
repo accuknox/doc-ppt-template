@@ -1,6 +1,6 @@
 # Polish the AccuKnox branding on D:\AccuKnox_OnPrem_Security_Assessment_Revised.docx.
 # Content is left untouched. Only three brand-fidelity fixes are applied:
-#   1. Cover title -> bold Primary Blue (#0046FF), Space Grotesk (was thin/black).
+#   1. Cover title -> bold Primary Blue (#0046FF), Inter (was thin/black).
 #   2. Header logo -> swap in the official high-res assets/logos/accuknox-logo-light-bg.png.
 #   3. Header label -> collapse the stray double space in "Security Assessment  Report".
 import os, shutil, zipfile
@@ -15,7 +15,7 @@ OUT = os.path.join(REPO, "output", "AccuKnox_OnPrem_Security_Assessment_Branded.
 OFFICIAL_LOGO = os.path.join(REPO, "assets", "logos", "accuknox-logo-light-bg.png")
 
 PRIMARY = "0046FF"
-BODY_FONT = "Space Grotesk"
+BODY_FONT = "Inter"
 
 os.makedirs(os.path.dirname(OUT), exist_ok=True)
 

@@ -45,7 +45,7 @@ the geometry and the rules that decide whether the deck looks expensive.
    a revision is an edit and a rerun. Copy the shape of `example_deck.py`.
 6. **Render, look, fix.** Follow `references/qa.md`. Look at every slide. The
    render is the only place a collision shows up.
-7. **Finalize.** `finalize.ps1` embeds Space Grotesk and writes the PDF, so the
+7. **Finalize.** `finalize.ps1` embeds Inter and writes the PDF, so the
    deck survives a machine that lacks the font.
 
 ```bash

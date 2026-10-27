@@ -34,7 +34,7 @@ GREY_BG  = RGBColor(0xEE, 0xF0, 0xF6)
 LAV      = RGBColor(0xEC, 0xEC, 0xFB)
 GREY_TX  = RGBColor(0x8A, 0x93, 0xA8)
 NAVY_TXT = RGBColor(0xB8, 0xC4, 0xE8)
-FONT     = "Space Grotesk"
+FONT     = "Inter"
 MONO     = "Consolas"
 ICF      = "Segoe MDL2 Assets"
 

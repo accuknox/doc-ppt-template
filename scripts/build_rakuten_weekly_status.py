@@ -11,7 +11,7 @@ into three readable slides, because the source packed two panels and a four-row
 table into a single 7.5 in canvas.
 
 Changes on top of the source:
-  - AccuKnox master layouts, palette and Space Grotesk throughout.
+  - AccuKnox master layouts, palette and Inter throughout.
   - Slide 1 is the AccuKnox cover layout, co-branded with the Rakuten wordmark on
     a white pill under the title. The AccuKnox lockup comes from the layout.
   - The source title slide carried an empty second title placeholder. Dropped.

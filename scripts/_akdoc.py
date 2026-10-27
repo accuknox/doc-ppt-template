@@ -8,7 +8,7 @@ client report needs on top of it: a header title, a letterhead footer, a documen
 control block, stat tiles, severity badges, callouts and a signature block.
 
 Palette follows README.md and scripts/_akdeck.py. Convert to PDF with to_pdf(), which
-drives Word through PowerShell COM, because Word renders Space Grotesk as shipped.
+drives Word through PowerShell COM, because Word renders Inter as shipped.
 """
 import os
 import subprocess
@@ -24,7 +24,7 @@ from docx.shared import Inches, Pt, RGBColor
 ROOT = Path(__file__).resolve().parents[1]
 TEMPLATE = ROOT / "WORD_TEMPLATE_ACCUKNOX.docx"
 
-FONT = "Space Grotesk"
+FONT = "Inter"
 MONO = "Consolas"
 
 NAVY = RGBColor(0x11, 0x20, 0x6D)
@@ -478,7 +478,7 @@ class AKDoc:
 
 
 def to_pdf(docx_path, pdf_path):
-    """Export with Word COM so Space Grotesk and the header logo render as shipped."""
+    """Export with Word COM so Inter and the header logo render as shipped."""
     docx_path, pdf_path = str(Path(docx_path).resolve()), str(Path(pdf_path).resolve())
     ps = (
         "$w = New-Object -ComObject Word.Application; $w.Visible = $false; "

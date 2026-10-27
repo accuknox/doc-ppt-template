@@ -39,7 +39,7 @@ MUTE     = RGBColor(0x5A, 0x63, 0x7D)
 GREY_BD  = RGBColor(0xC4, 0xCC, 0xDE)
 LAV      = RGBColor(0xEC, 0xEC, 0xFB)
 NAVY_TXT = RGBColor(0xB8, 0xC4, 0xE8)
-FONT     = "Space Grotesk"
+FONT     = "Inter"
 ICF      = "Segoe MDL2 Assets"
 
 IC = {

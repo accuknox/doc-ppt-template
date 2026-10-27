@@ -5,6 +5,12 @@ turn a draft into a branded final file. Read [`README.md`](README.md) for the pa
 the logo rules and the Word workflow. This file holds the rules that get broken most
 often, so read it before you write a build script.
 
+## Every Asset Uses Inter and Nothing Else
+
+Every deck, Word doc, PDF, cheatsheet, ebook and diagram uses `Inter`. Never use
+`Space Grotesk`, and never add a second display face. Font files for scripts live in
+`assets/fonts/`.
+
 ## Hard rules for every deck
 
 ### 1. The cover and the closing slide already exist. Use them.

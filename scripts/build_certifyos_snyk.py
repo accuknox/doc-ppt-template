@@ -344,7 +344,7 @@ LEGEND = ('<div class="legend">%s<span>Full capability</span>%s'
 CSS = """
 @page { size: A4; margin: 0; }
 * { box-sizing: border-box; margin: 0; padding: 0; }
-html, body { font-family: 'Space Grotesk', 'Inter', 'Segoe UI', sans-serif;
+html, body { font-family: 'Inter', 'Segoe UI', sans-serif;
   color: INK; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
 a { color: BLUE; text-decoration: none; }
 

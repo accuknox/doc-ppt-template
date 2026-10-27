@@ -43,8 +43,8 @@ OUTDIR = ROOT / "output" / "tcts"
 ASSETS = ROOT / "output" / "assets" / "tcts"
 LOGO = ROOT / "assets" / "logos" / "accuknox-logo-dark-bg.png"
 
-MED = "Space Grotesk Medium"
-SEMI = "Space Grotesk SemiBold"
+MED = "Inter"
+SEMI = "Inter SemiBold"
 M = 0.55                      # side margin
 SW, SH = 10.0, 5.625
 

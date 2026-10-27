@@ -24,7 +24,7 @@ PRIMARY = "0046FF"
 BORDER = "C4CCDE"
 GREY_FILL = "EEF0F6"
 MUTED = "5A6478"
-BODY_FONT = "Space Grotesk"
+BODY_FONT = "Inter"
 MONO_FONT = "Consolas"
 
 DOC_TITLE = "AccuKnox v3.6 On-Prem Single Node Deployment Guide"

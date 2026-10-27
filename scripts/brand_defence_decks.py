@@ -5,7 +5,7 @@ Calibri + Cambria and no logo anywhere. This script keeps every layout,
 shape position, and image exactly where it is, and swaps three things:
 
 1. Colors  -> the AccuKnox palette from README.md
-2. Fonts   -> Space Grotesk (primary brand face)
+2. Fonts   -> Inter (primary brand face)
 3. Logo    -> footer lockup on every slide, plus a large lockup on the cover
 
 It also rewrites em/en dashes, which the repo writing rules ban.
@@ -101,8 +101,8 @@ ON_DARK_TEXT = {
     "6464FF": "6464FF",   # already the on-dark accent, leave alone
 }
 
-FONT_MAP = {"Calibri": "Space Grotesk", "Cambria": "Space Grotesk"}
-# Space Grotesk sets wider than Calibri, so pull sizes back a touch to keep
+FONT_MAP = {"Calibri": "Inter", "Cambria": "Inter"}
+# Inter sets wider than Calibri, so pull sizes back a touch to keep
 # every existing text box from overflowing its shape.
 SIZE_SCALE = 0.93
 

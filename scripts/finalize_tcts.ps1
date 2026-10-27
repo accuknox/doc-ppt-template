@@ -1,5 +1,5 @@
 # Re-save each TCTS deck through PowerPoint with TrueType fonts embedded, then export a PDF.
-# Embedding keeps Space Grotesk on machines that do not have it installed.
+# Embedding keeps Inter on machines that do not have it installed.
 param([string]$Dir = (Join-Path $PSScriptRoot "..\output\tcts"))
 $pp = New-Object -ComObject PowerPoint.Application
 try {

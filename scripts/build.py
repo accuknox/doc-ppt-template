@@ -40,7 +40,7 @@ GREY_PH   = RGBColor(0xEE,0xF0,0xF6)   # screenshot placeholder fill
 GREY_BD   = RGBColor(0xC4,0xCC,0xDE)   # placeholder border
 LAV       = RGBColor(0xE6,0xE6,0xFA)
 NOT_ON    = RGBColor(0x99,0x00,0xFF)
-FONT      = "Space Grotesk"
+FONT      = "Inter"
 
 # ---- helpers ------------------------------------------------------
 def settext(shape, *lines):

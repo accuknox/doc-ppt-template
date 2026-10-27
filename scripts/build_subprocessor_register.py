@@ -69,7 +69,7 @@ def para(text="", style="normal", size=None, bold=None, color=None,
 def eyebrow(text):
     p = para(text.upper(), size=8.5, bold=True, color=PRIMARY,
              space_before=14, space_after=2)
-    p.runs[0].font.name = "Space Grotesk"
+    p.runs[0].font.name = "Inter"
     return p
 
 
@@ -118,7 +118,7 @@ def cell_text(cell, text, size=9.5, bold=False, color=None, align=None):
     run = p.add_run(text)
     run.font.size = Pt(size)
     run.font.bold = bold
-    run.font.name = "Space Grotesk"
+    run.font.name = "Inter"
     if color is not None:
         run.font.color.rgb = color
     return cell

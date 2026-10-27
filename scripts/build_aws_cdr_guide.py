@@ -34,12 +34,12 @@ LOGO_LIGHT = os.path.join(REPO, "assets", "logos", "accuknox-logo-light-bg.png")
 EMBLEM = os.path.join(REPO, "assets", "logos", "accuknox-emblem.png")
 EDGE = r"C:\Program Files (x86)\Microsoft\Edge\Application\msedge.exe"
 
-FONTDIR = os.path.join(os.environ["LOCALAPPDATA"], "Microsoft", "Windows", "Fonts")
+FONTDIR = os.path.join(REPO, "assets", "fonts")
 FONTS = {
-    400: "SpaceGrotesk-Regular.ttf",
-    500: "SpaceGrotesk-Medium.ttf",
-    600: "SpaceGrotesk-SemiBold.ttf",
-    700: "SpaceGrotesk-Bold.ttf",
+    400: "Inter-Regular.ttf",
+    500: "Inter-Medium.ttf",
+    600: "Inter-SemiBold.ttf",
+    700: "Inter-Bold.ttf",
 }
 MONO = "SpaceMono-Regular.ttf"
 MONO_BOLD = "SpaceMono-Bold.ttf"
@@ -483,7 +483,7 @@ def figure_context(img):
 
 
 def css():
-    faces = "".join(font_face("Space Grotesk", w, f) for w, f in FONTS.items())
+    faces = "".join(font_face("Inter", w, f) for w, f in FONTS.items())
     faces += font_face("Space Mono", 400, MONO)
     faces += font_face("Space Mono", 700, MONO_BOLD)
     return faces + """
@@ -492,7 +492,7 @@ def css():
 @page cover{size:A4;margin:0}
 @page roadmap{size:A4;margin:0}
 html{-webkit-print-color-adjust:exact;print-color-adjust:exact}
-body{font:400 9.6pt/1.55 'Space Grotesk',Inter,sans-serif;color:#1b2033}
+body{font:400 9.6pt/1.55 'Inter',sans-serif;color:#1b2033}
 
 /* ---------- cover ---------- */
 .cover{page:cover;width:210mm;height:297mm;position:relative;overflow:hidden;
@@ -508,27 +508,27 @@ body{font:400 9.6pt/1.55 'Space Grotesk',Inter,sans-serif;color:#1b2033}
 .cvtop{display:flex;align-items:flex-start;justify-content:space-between}
 .cvtop img{height:11mm}
 .pill{border:1px solid rgba(255,255,255,.5);border-radius:20px;padding:1.6mm 4.5mm;
-  font:600 7.6pt/1 'Space Grotesk';letter-spacing:.16em;text-transform:uppercase}
+  font:600 7.6pt/1 'Inter';letter-spacing:.16em;text-transform:uppercase}
 .cvmid{margin-top:26mm}
-.eyebrow{font:600 8.4pt/1 'Space Grotesk';letter-spacing:.28em;text-transform:uppercase;
+.eyebrow{font:600 8.4pt/1 'Inter';letter-spacing:.28em;text-transform:uppercase;
   color:#9fb0ff;margin-bottom:6mm}
-.cvmid h1{font:700 34pt/1.06 'Space Grotesk';letter-spacing:-.02em;max-width:150mm}
-.cvmid h2{font:500 15pt/1.3 'Space Grotesk';color:#b9c6ff;margin-top:5mm}
+.cvmid h1{font:700 34pt/1.06 'Inter';letter-spacing:-.02em;max-width:150mm}
+.cvmid h2{font:500 15pt/1.3 'Inter';color:#b9c6ff;margin-top:5mm}
 .rule{width:38mm;height:1.6mm;margin:9mm 0 7mm;border-radius:2px;
   background:linear-gradient(90deg,#C80019,#6464FF 55%,#0046FF)}
-.lede{font:400 11pt/1.62 'Space Grotesk';color:#dfe5ff;max-width:158mm}
+.lede{font:400 11pt/1.62 'Inter';color:#dfe5ff;max-width:158mm}
 .cards{display:grid;grid-template-columns:repeat(3,1fr);gap:5mm;margin-top:11mm}
 .card{background:rgba(255,255,255,.09);border:1px solid rgba(255,255,255,.2);
   border-radius:3mm;padding:6mm 5.5mm}
-.card .k{font:600 7.4pt/1 'Space Grotesk';letter-spacing:.18em;text-transform:uppercase;
+.card .k{font:600 7.4pt/1 'Inter';letter-spacing:.18em;text-transform:uppercase;
   color:#8fa4ff;margin-bottom:3.5mm}
-.card p{font:400 9pt/1.5 'Space Grotesk';color:#eef1ff}
+.card p{font:400 9pt/1.5 'Inter';color:#eef1ff}
 .flow{margin-top:auto;padding-top:12mm}
-.flow .k{font:600 7.4pt/1 'Space Grotesk';letter-spacing:.18em;text-transform:uppercase;
+.flow .k{font:600 7.4pt/1 'Inter';letter-spacing:.18em;text-transform:uppercase;
   color:#8fa4ff;margin-bottom:4.5mm}
 .flowline{display:flex;align-items:center;gap:2.2mm;flex-wrap:nowrap}
 .fchip{background:#eef1fb;border:1px solid #c4ccde;color:#11206D;
-  border-radius:2mm;padding:2.2mm 3.2mm;font:500 8.2pt/1.1 'Space Grotesk';white-space:nowrap}
+  border-radius:2mm;padding:2.2mm 3.2mm;font:500 8.2pt/1.1 'Inter';white-space:nowrap}
 .fchip.last{background:#0046FF;border-color:#0046FF;color:#fff}
 .flowline.dark .fchip{background:rgba(255,255,255,.14);border-color:rgba(255,255,255,.3);
   color:#fff}
@@ -544,15 +544,15 @@ body{font:400 9.6pt/1.55 'Space Grotesk',Inter,sans-serif;color:#1b2033}
 .azone{width:100%;border-radius:2.5mm;padding:4mm 5mm 5mm;position:relative}
 .azone.aws{background:#f6f8fd;border:1px solid #dde2f0}
 .azone.ak{background:#eef2ff;border:1px solid #c3cff5}
-.azlabel{font:600 7pt/1 'Space Grotesk';letter-spacing:.14em;text-transform:uppercase;
+.azlabel{font:600 7pt/1 'Inter';letter-spacing:.14em;text-transform:uppercase;
   color:#11206D;margin-bottom:3.5mm}
 .azone.ak .azlabel{color:#0046FF}
 .acol{display:flex;flex-direction:column;align-items:center}
 .anode{width:112mm;border:1px solid #c4ccde;border-left:2mm solid #6464FF;background:#fff;
   border-radius:1.8mm;padding:2.6mm 4mm;text-align:left}
 .azone.ak .anode{border-left-color:#0046FF;border-color:#b9c6f5}
-.anode .al{font:600 9.4pt/1.2 'Space Grotesk';color:#11206D}
-.anode .an{font:400 7.9pt/1.35 'Space Grotesk';color:#5b6483;margin-top:1mm}
+.anode .al{font:600 9.4pt/1.2 'Inter';color:#11206D}
+.anode .an{font:400 7.9pt/1.35 'Inter';color:#5b6483;margin-top:1mm}
 .astem{width:0;height:0;margin:1.5mm 0;border-left:1.6mm solid transparent;
   border-right:1.6mm solid transparent;border-top:2.2mm solid #0046FF}
 .astem.zonestem{margin:2.6mm 0;border-left-width:2.2mm;border-right-width:2.2mm;
@@ -567,45 +567,45 @@ body{font:400 9.6pt/1.55 'Space Grotesk',Inter,sans-serif;color:#1b2033}
 .rules td:first-child{font-weight:600;color:#11206D}
 .rules tbody tr{break-inside:avoid}
 .cvfoot{margin-top:10mm;padding-top:5mm;border-top:1px solid rgba(255,255,255,.22);
-  display:flex;justify-content:space-between;font:400 8pt/1.4 'Space Grotesk';color:#aab8ff}
+  display:flex;justify-content:space-between;font:400 8pt/1.4 'Inter';color:#aab8ff}
 
 /* ---------- roadmap ---------- */
 .roadmap{page:roadmap;width:210mm;height:297mm;padding:18mm 18mm 14mm;position:relative;
   overflow:hidden;break-after:page;background:#fff}
 .rmhead{display:flex;justify-content:space-between;align-items:flex-end;
   border-bottom:2px solid #11206D;padding-bottom:5mm}
-.rmhead h2{font:700 19pt/1.15 'Space Grotesk';color:#11206D}
+.rmhead h2{font:700 19pt/1.15 'Inter';color:#11206D}
 .rmhead img{height:8.5mm}
-.rmintro{font:400 9.6pt/1.55 'Space Grotesk';color:#3a4260;margin:5mm 0 5mm;max-width:168mm}
+.rmintro{font:400 9.6pt/1.55 'Inter';color:#3a4260;margin:5mm 0 5mm;max-width:168mm}
 .prebox{border-left:3.5mm solid #0046FF;background:#f1f4ff;border-radius:0 2mm 2mm 0;
   padding:4mm 5mm;margin-bottom:5.5mm}
-.prebox h3{font:600 9.6pt/1.3 'Space Grotesk';color:#11206D;margin-bottom:2mm}
-.prebox p{font:400 8.9pt/1.5 'Space Grotesk';color:#3a4260}
+.prebox h3{font:600 9.6pt/1.3 'Inter';color:#11206D;margin-bottom:2mm}
+.prebox p{font:400 8.9pt/1.5 'Inter';color:#3a4260}
 .steplist{display:grid;grid-template-columns:1fr 1fr;gap:2.6mm 6mm}
 .srow{display:flex;gap:3.4mm;align-items:flex-start;border-top:1px solid #e3e7f2;padding-top:2.8mm}
-.snum{font:700 9pt/1 'Space Grotesk';color:#0046FF;min-width:7mm;padding-top:.6mm}
-.srow .t{font:600 9pt/1.35 'Space Grotesk';color:#11206D}
-.srow .d{font:400 8.1pt/1.4 'Space Grotesk';color:#5b6483;margin-top:1mm}
+.snum{font:700 9pt/1 'Inter';color:#0046FF;min-width:7mm;padding-top:.6mm}
+.srow .t{font:600 9pt/1.35 'Inter';color:#11206D}
+.srow .d{font:400 8.1pt/1.4 'Inter';color:#5b6483;margin-top:1mm}
 .ucwrap{margin-top:6mm}
-.ucwrap>.k{font:600 7.8pt/1 'Space Grotesk';letter-spacing:.18em;text-transform:uppercase;
+.ucwrap>.k{font:600 7.8pt/1 'Inter';letter-spacing:.18em;text-transform:uppercase;
   color:#8b93b3;margin-bottom:4mm}
 .ucs{display:grid;grid-template-columns:repeat(3,1fr);gap:4.5mm}
 .uc{border:1px solid #dde2f0;border-top:2.5mm solid #C80019;border-radius:2mm;padding:4.5mm}
 .uc.b{border-top-color:#6464FF}.uc.c{border-top-color:#0046FF}
-.uc .t{font:600 9.2pt/1.3 'Space Grotesk';color:#11206D}
-.uc .d{font:400 8.2pt/1.45 'Space Grotesk';color:#5b6483;margin-top:2mm}
+.uc .t{font:600 9.2pt/1.3 'Inter';color:#11206D}
+.uc .d{font:400 8.2pt/1.45 'Inter';color:#5b6483;margin-top:2mm}
 .convey{margin-top:6.5mm;border-top:1px solid #e3e7f2;padding-top:4mm;
-  font:400 8.2pt/1.5 'Space Grotesk';color:#5b6483}
+  font:400 8.2pt/1.5 'Inter';color:#5b6483}
 .convey .navchip{font-size:7.6pt;padding:.9mm 1.8mm}
 .convey b{color:#11206D;font-weight:600}
 
 /* ---------- body ---------- */
 .stepsec{break-before:page}
-h1.step{font:700 17pt/1.2 'Space Grotesk';color:#11206D;padding-bottom:3.5mm;
+h1.step{font:700 17pt/1.2 'Inter';color:#11206D;padding-bottom:3.5mm;
   margin-bottom:5mm;border-bottom:2px solid #0046FF;break-after:avoid}
-h2{font:600 12pt/1.3 'Space Grotesk';color:#003BF6;margin:7mm 0 2.8mm;break-after:avoid}
+h2{font:600 12pt/1.3 'Inter';color:#003BF6;margin:7mm 0 2.8mm;break-after:avoid}
 h2.result-h,h3.result-h{color:#0B7A42}
-h3{font:600 10.2pt/1.35 'Space Grotesk';color:#11206D;margin:5.5mm 0 2.2mm;break-after:avoid}
+h3{font:600 10.2pt/1.35 'Inter';color:#11206D;margin:5.5mm 0 2.2mm;break-after:avoid}
 p{margin:0 0 2.8mm}
 strong{font-weight:600;color:#11206D}
 ul,ol{margin:0 0 3.2mm 5mm}
@@ -618,7 +618,7 @@ pre.code{font:400 8.1pt/1.5 'Space Mono',monospace;background:#0e1430;color:#dbe
   border-left:2mm solid #0046FF;break-inside:avoid}
 .nav{display:flex;flex-wrap:wrap;align-items:center;gap:1.8mm;margin:0 0 4mm}
 .navchip{background:#eef0f6;border:1px solid #c4ccde;border-radius:1.4mm;padding:1.4mm 2.6mm;
-  font:500 8.4pt/1 'Space Grotesk';color:#11206D}
+  font:500 8.4pt/1 'Inter';color:#11206D}
 .navarrow{display:inline-block;width:0;height:0;vertical-align:middle;
   border-top:1.3mm solid transparent;border-bottom:1.3mm solid transparent;
   border-left:1.9mm solid #0046FF}
@@ -633,14 +633,14 @@ tbody tr:nth-child(even){background:#f6f8fd}
 td strong{color:#11206D}
 figure.shot{margin:0 auto 5mm;text-align:center;break-inside:avoid}
 figure.shot img{display:block;margin:0 auto;border:1px solid #c4ccde;border-radius:1.6mm}
-figcaption{font:400 7.8pt/1.4 'Space Grotesk';color:#7a83a1;margin-top:2mm;text-align:center}
+figcaption{font:400 7.8pt/1.4 'Inter';color:#7a83a1;margin-top:2mm;text-align:center}
 section.optional{border:1px solid #c9d2ea;border-radius:2.5mm;overflow:hidden;margin:0 0 6mm;
   background:#fafbff}
 .optional-bar{background:#eaeefc;border-bottom:1px solid #c9d2ea;padding:3.5mm 5mm;
   display:flex;align-items:center;gap:4mm;break-after:avoid}
 .optional-tag{background:#0046FF;color:#fff;border-radius:1.4mm;padding:1.2mm 2.6mm;
-  font:600 7pt/1 'Space Grotesk';letter-spacing:.1em;text-transform:uppercase;white-space:nowrap}
-.optional-title{font:600 10.5pt/1.2 'Space Grotesk';color:#11206D}
+  font:600 7pt/1 'Inter';letter-spacing:.1em;text-transform:uppercase;white-space:nowrap}
+.optional-title{font:600 10.5pt/1.2 'Inter';color:#11206D}
 .optional-body{padding:5mm}
 .optional-body h1.step{font-size:13pt;border-bottom-width:1px}
 .optional-body .stepsec{break-before:auto}
