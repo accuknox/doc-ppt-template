@@ -29,7 +29,7 @@ def d_architecture():
     b.append(text(0, 26, "YOUR APPLICATIONS", 19, PRIMARY, 700))
     b.append(text(345, 26, "SECRETS MANAGER ON THE BANK'S TANZU CLUSTER", 19, PRIMARY, 700))
     b.append(text(1018, 26, "BANK SYSTEMS", 19, PRIMARY, 700))
-    apps = [(44, "Kubernetes pods", "Secret arrives as a file", ["kubernetes-original", "helm-original", "docker-original"], GREEN),
+    apps = [(44, "Kubernetes pods", "Synced by External Secrets", ["kubernetes-original", "helm-original", "docker-original"], GREEN),
             (218, "App servers on VMs", "SDK or REST API call", ["java-original", "dotnetcore-original", "tomcat-original", "windows11-original"], PRIMARY),
             (392, "Jobs and pipelines", "CLI or REST API call", ["bash-original", "powershell-original", "linux-original", "argocd-original"], PRIMARY)]
     for y, h1, h2, logos, acc in apps:
@@ -69,8 +69,8 @@ def d_architecture():
         wdt = 48 + len(lb) * 8.4
         b.append(chip(xx, 382, wdt, 38, ic, lb, size=15))
         xx += wdt + 7
-    b.append(chip(362, 432, 298, 48, "webhook", "Agent Injector", size=19))
-    b.append(chip(670, 432, 298, 48, "box", "CSI provider", size=19))
+    b.append(chip(362, 432, 298, 48, "api", "REST API and SDK", size=19))
+    b.append(chip(670, 432, 298, 48, "refresh", "External Secrets sync", size=19))
     b.append(rect(362, 492, 606, 40, fill=GREEN_LT, stroke="none", r=20))
     b.append(ui("shield-check", 376, 498, 28, GREEN_DK))
     b.append(text(412, 519, "KubeArmor runtime hardening on every pod", 19, GREEN_DK, 700))
@@ -87,6 +87,72 @@ def d_architecture():
         b.append(text(1092, y + 70, h2, 17, MUTE, 500))
         b.append(arrow(988, y + 56, 1012, y + 56, SECOND, 3))
     return render("architecture", W, H, "".join(b))
+
+
+def d_architecture_docs():
+    W, H = 1280, 590
+    b = []
+    b.append(text(0, 26, "YOUR APPLICATIONS", 19, PRIMARY, 700))
+    b.append(text(345, 26, "SECRETS MANAGER ON KUBERNETES", 19, PRIMARY, 700))
+    b.append(text(1018, 26, "YOUR SYSTEMS", 19, PRIMARY, 700))
+    apps = [(44, "Kubernetes pods", "Synced by External Secrets", ["kubernetes-original", "helm-original", "docker-original"], GREEN),
+            (218, "App servers on VMs", "SDK or REST API call", ["java-original", "dotnetcore-original", "tomcat-original", "windows11-original"], PRIMARY),
+            (392, "Jobs and pipelines", "CLI or REST API call", ["bash-original", "powershell-original", "linux-original", "argocd-original"], PRIMARY)]
+    for y, h1, h2, logos, acc in apps:
+        b.append(rect(0, y, 290, 156, fill=WHITE, stroke=GREY_BD))
+        b.append(rect(0, y, 8, 156, fill=acc, stroke="none", r=4))
+        b.append(text(22, y + 36, h1, 24, NAVY, 700))
+        for i, lg in enumerate(logos):
+            b.append(logo(lg, 22 + i * 62, y + 54, 46))
+        b.append(text(22, y + 136, h2, 19, MUTE, 500))
+        b.append(arrow(296, y + 78, 338, y + 78, acc, 4))
+    b.append(ui("lock", 0, 560, 24, MUTE))
+    b.append(text(32, 580, "Every call travels over TLS", 18, MUTE, 600, italic=True))
+    # cluster
+    b.append(rect(345, 44, 640, 504, fill=GREY_BG, stroke=GREY_BD, r=18))
+    b.append(rect(362, 58, 606, 98, fill=NAVY, stroke="none", r=12))
+    b.append(ui("fingerprint", 376, 68, 30, WHITE))
+    b.append(text(414, 92, "Auth methods: who is asking?", 21, WHITE, 700))
+    xx = 376
+    for a in ["K8s service account", "AppRole", "Entra ID (OIDC)", "LDAP", "JWT", "TLS cert"]:
+        wdt = 16 + len(a) * 7.6
+        b.append(pill(xx, 112, wdt, 30, a, fill="#24358A", color=WHITE, size=14, weight=500))
+        xx += wdt + 5
+    for i, (n, role, col) in enumerate([("node-0", "Active", PRIMARY), ("node-1", "Standby", SECOND), ("node-2", "Standby", SECOND)]):
+        x = 362 + i * 206
+        b.append(rect(x, 170, 194, 92, fill=WHITE, stroke=col, sw=3))
+        b.append(ui("server-2", x + 12, 182, 36, col))
+        b.append(text(x + 56, 206, n, 22, NAVY, 700))
+        b.append(pill(x + 56, 218, 100 if role == "Active" else 110, 28, role, fill=col, color=WHITE, size=16))
+        b.append(cyl(x + 37, 274, 120, 50, "Raft 10Gi"))
+    b.append(arrow(558, 300, 596, 300, SECOND, 2.5, "6 5", both=True))
+    b.append(arrow(764, 300, 802, 300, SECOND, 2.5, "6 5", both=True))
+    b.append(text(665, 342, "data replicates between all three nodes", 15, SECOND, 600, "middle", italic=True))
+    b.append(text(362, 372, "Secret engines", 20, NAVY, 700))
+    b.append(text(520, 372, "policy decides which paths each identity reads", 16, MUTE, 500, italic=True))
+    xx = 362
+    for ic, lb in [("key", "KV v2"), ("database", "Database"), ("certificate", "PKI"), ("lock", "Transit"), ("terminal-2", "SSH"), ("clock", "TOTP")]:
+        wdt = 48 + len(lb) * 8.4
+        b.append(chip(xx, 382, wdt, 38, ic, lb, size=15))
+        xx += wdt + 7
+    b.append(chip(362, 432, 298, 48, "api", "REST API and SDK", size=19))
+    b.append(chip(670, 432, 298, 48, "refresh", "External Secrets sync", size=19))
+    b.append(rect(362, 492, 606, 40, fill=GREEN_LT, stroke="none", r=20))
+    b.append(ui("shield-check", 376, 498, 28, GREEN_DK))
+    b.append(text(412, 519, "KubeArmor runtime hardening on every pod", 19, GREEN_DK, 700))
+    sysrows = [(44, "Identity", ["Entra ID or LDAP"], "brand", "azure-original"),
+               (170, "Snapshots", ["S3-compatible", "bucket, on-prem"], "ui", "bucket"),
+               (296, "SIEM", ["Receives the", "audit log"], "ui", "eye"),
+               (422, "Monitoring", ["Prometheus", "and Grafana"], "brand", "prometheus-original")]
+    for y, h1, h2, kind, ic in sysrows:
+        b.append(rect(1018, y, 262, 112, fill=WHITE, stroke=GREY_BD))
+        b.append(logo(ic, 1032, y + 16, 46) if kind == "brand" else ui(ic, 1032, y + 16, 46, PRIMARY))
+        if ic == "prometheus-original":
+            b.append(logo("grafana-original", 1036, y + 66, 38))
+        b.append(text(1092, y + 42, h1, 23, NAVY, 700))
+        b.append(text(1092, y + 70, h2, 17, MUTE, 500))
+        b.append(arrow(988, y + 56, 1012, y + 56, SECOND, 3))
+    return render("architecture_docs", W, H, "".join(b))
 
 
 def d_flow():
@@ -119,16 +185,16 @@ def d_flow():
 def d_patterns():
     W, H = 1280, 520
     b = []
-    cols = [("1  SDK or REST API", "Small code change", PURPLE, LAV),
-            ("2  File injection", "No code change", GREEN_DK, GREEN_LT),
-            ("3  Environment variable", "Start command only", GREEN_DK, GREEN_LT),
-            ("4  CSI volume", "No code change", GREEN_DK, GREEN_LT)]
+    cols = [("1  SDK or REST API", "Small application code change", PURPLE, LAV),
+            ("2  File injection", "No application code change", GREEN_DK, GREEN_LT),
+            ("3  Env var injection", "No application code change", GREEN_DK, GREEN_LT),
+            ("4  Volume injection", "No application code change", GREEN_DK, GREEN_LT)]
     for i, (h1, tag, tc, tf) in enumerate(cols):
         x = i * 324
         b.append(rect(x, 0, 304, 520, fill=WHITE, stroke=GREY_BD))
         b.append(rect(x, 0, 304, 10, fill=PRIMARY if i == 0 else GREEN, stroke="none", r=5))
         b.append(text(x + 18, 48, h1, 23, NAVY, 700))
-        b.append(pill(x + 18, 64, 200, 34, tag, fill=tf, color=tc, size=17))
+        b.append(pill(x + 18, 64, 268, 34, tag, fill=tf, color=tc, size=15))
         # mini diagram area
         b.append(rect(x + 18, 116, 268, 230, fill=GREY_BG, stroke="none", r=12))
         sm = (x + 152, 150)  # secrets manager position
@@ -167,10 +233,10 @@ def d_patterns():
                 b.append(rect(x + 186, 266, 74, 62, fill=WHITE, stroke=GREY_BD, r=8))
                 b.append(text(x + 223, 302, "App", 17, NAVY, 700, "middle"))
                 b.append(arrow(x + 92, 262, x + 120, 212, GREEN, 3))
-        desc = [["The app asks at run", "time. The secret lives", "only in memory."],
-                ["A sidecar writes the", "secret to a file the", "app already reads."],
-                ["The start command", "loads the file into", "env vars."],
-                ["The pod mounts the", "secret as a volume or", "a Kubernetes Secret."]][i]
+        desc = [["The app calls Secrets", "Manager at run time.", "It stays in memory."],
+                ["A pod annotation adds", "a sidecar. It writes", "the secret to a file."],
+                ["A pod annotation adds", "a sidecar. It injects", "the secret as env vars."],
+                ["The manifest mounts", "a volume that holds", "the secret."]][i]
         b.append(text(x + 18, 384, desc, 19, INK, 500))
         best = ["Most secure", "Best for Tanzu apps", "Use files if you can", "Apps on K8s Secrets"][i]
         b.append(ui("check" if False else "checkbox", x + 18, 472, 26, tc))
@@ -342,15 +408,87 @@ def d_airgap():
     b.append(f'<line x1="690" y1="0" x2="690" y2="230" stroke="{RED}" stroke-width="3" stroke-dasharray="10 7"/>')
     b.append(ui("wifi-off", 672, 232, 36, RED))
     b.append(text(720, 258, "Air gap: nothing inside calls the internet", 19, RED, 700))
-    b.append(text(0, 258, "Pull 5 images and the chart tar once", 19, MUTE, 600))
+    b.append(text(0, 258, "Pull the images and the chart tar once", 19, MUTE, 600))
     b.append(text(0, 288, "Unseal with bank key holders, 3 of 5 Shamir keys", 19, MUTE, 600))
     return render("airgap", W, H, "".join(b))
 
 
+def d_airgap_docs():
+    W, H = 1280, 300
+    b = []
+    zones = [(0, 300, "Connected host", "Outside the network", "download", MUTE),
+             (360, 300, "Transfer", "Approved media", "package", PURPLE),
+             (720, 260, "Internal registry", "registry.internal", "stack-2", PRIMARY),
+             (1020, 260, "Kubernetes cluster", "helm upgrade --install", "kubernetes-original", GREEN_DK)]
+    for i, (x, w, h1, h2, ic, col) in enumerate(zones):
+        b.append(rect(x, 30, w, 170, fill=WHITE, stroke=col, sw=3))
+        if ic.endswith("original"):
+            b.append(logo(ic, x + w / 2 - 32, 46, 64))
+        else:
+            b.append(ui(ic, x + w / 2 - 32, 46, 64, col))
+        b.append(text(x + w / 2, 146, h1, 24, NAVY, 700, "middle"))
+        b.append(text(x + w / 2, 176, h2, 17, MUTE, 500, "middle"))
+        b.append(badge(x + 24, 30, i + 1, r=17, fill=col))
+        if i < 3:
+            nx = zones[i + 1][0]
+            b.append(arrow(x + w + 4, 115, nx - 6, 115, col, 4))
+    # air gap boundary
+    b.append(f'<line x1="690" y1="0" x2="690" y2="230" stroke="{RED}" stroke-width="3" stroke-dasharray="10 7"/>')
+    b.append(ui("wifi-off", 672, 232, 36, RED))
+    b.append(text(720, 258, "Air gap: nothing inside calls the internet", 19, RED, 700))
+    b.append(text(0, 258, "Pull the images and the chart tar once", 19, MUTE, 600))
+    b.append(text(0, 288, "Unseal with your key holders, 3 of 5 Shamir keys", 19, MUTE, 600))
+    return render("airgap_docs", W, H, "".join(b))
+
+
+def d_dynamic():
+    """Dynamic database credentials: three components, numbered arrows."""
+    W, H = 1280, 442
+    b = []
+    comps = [(0, 280, "Application", "code", NAVY, ["Pod or VM app"]),
+             (470, 340, "Secrets Manager", "lock", PRIMARY, ["Database engine", "with admin access"]),
+             (1000, 280, "Database", "database", GREEN_DK, ["In the demo"])]
+    for x, w, h1, icn, col, sub in comps:
+        b.append(rect(x, 10, w, 206, fill=WHITE, stroke=col, sw=3))
+        b.append(f'<circle cx="{x+56}" cy="64" r="38" fill="{LAV if col != GREEN_DK else GREEN_LT}"/>')
+        b.append(ui(icn, x + 33, 41, 46, col))
+        b.append(text(x + 106, 73, h1, 24, NAVY, 700))
+        b.append(text(x + 22, 146, sub, 19, MUTE, 500))
+    for i, lg in enumerate(["oracle-original", "postgresql-original", "mysql-original"]):
+        b.append(logo(lg, 1022 + i * 60, 160, 46))
+    # arrows: badge and bold verb above the line, detail below
+    steps = [(284, 464, 70, 1, "Request", ["DB credentials"], PRIMARY),
+             (466, 286, 170, 3, "Return", ["the temporary", "credentials"], PURPLE),
+             (814, 994, 70, 2, "Create", ["a temporary DB", "user and password"], PRIMARY)]
+    for x1, x2, y, n, verb, sub, col in steps:
+        lx = min(x1, x2) + 14
+        b.append(arrow(x1, y, x2, y, col, 4))
+        b.append(badge(lx + 18, y - 28, n, fill=col))
+        b.append(text(lx + 44, y - 21, verb, 19, NAVY, 700))
+        b.append(text(lx + 4, y + 28, sub, 17, MUTE, 600))
+    # 4  app -> DB, under everything
+    b.append(curve("M140,218 L140,262 L1140,262 L1140,224", GREEN_DK, 4))
+    b.append(rect(452, 244, 388, 36, fill=WHITE, stroke="none", r=6))
+    b.append(badge(478, 262, 4, fill=GREEN_DK))
+    b.append(text(506, 269, "Connect with the temporary user", 19, GREEN_DK, 700))
+    # bottom cards
+    cards = [("refresh", "5. Next new connection", ["Asks for fresh credentials", "when it needs them"], PRIMARY),
+             ("plug-connected", "Open connections stay up", ["Expiry does not cut a", "connection already open"], GREEN_DK),
+             ("clock", "Credentials expire", ["After a set time, such as", "1 or 2 hours"], PURPLE)]
+    for i, (icn, h1, sub, col) in enumerate(cards):
+        x = i * 430
+        b.append(rect(x, 306, 420, 132, fill=WHITE, stroke=GREY_BD, sw=2))
+        b.append(f'<circle cx="{x+48}" cy="352" r="30" fill="{LAV if col != GREEN_DK else GREEN_LT}"/>')
+        b.append(ui(icn, x + 30, 334, 36, col))
+        b.append(text(x + 92, 360, h1, 21, NAVY, 700))
+        b.append(text(x + 20, 404, sub, 18, MUTE, 500))
+    return render("dynamic", W, H, "".join(b))
+
+
 if __name__ == "__main__":
     which = sys.argv[1:] or ["all"]
-    fns = {"architecture": d_architecture, "flow": d_flow, "patterns": d_patterns,
-           "injector": d_injector, "rotation": d_rotation, "ha": d_ha, "dr": d_dr, "airgap": d_airgap}
+    fns = {"architecture": d_architecture, "architecture_docs": d_architecture_docs, "flow": d_flow, "patterns": d_patterns,
+           "injector": d_injector, "rotation": d_rotation, "dynamic": d_dynamic, "ha": d_ha, "dr": d_dr, "airgap": d_airgap, "airgap_docs": d_airgap_docs}
     for k, f in fns.items():
         if "all" in which or k in which:
             print(k, f())
