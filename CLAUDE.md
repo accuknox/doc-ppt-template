@@ -11,6 +11,33 @@ Every deck, Word doc, PDF, cheatsheet, ebook and diagram uses `Inter`. Never use
 `Space Grotesk`, and never add a second display face. Font files for scripts live in
 `assets/fonts/`.
 
+## Every Marketing File Follows Two Leadership Rules
+
+Leadership set these rules on 2026-10-28. They apply to every PDF, deck, Word doc, one pager and
+image built from this template, by any person or tool. The help repo `CLAUDE.md` carries the
+same rules.
+
+**Name the delivered file like a person would.** Use `AccuKnox_<Asset_Type>_<Topic>.<ext>`, Title
+Case words joined by underscores, for example `AccuKnox_Case_Study_Stock_Exchange.pdf`. Keep
+dates, `-v1` suffixes, lowercase hyphen slugs and words such as draft, final or generated out
+of a delivered name. A reader skips a file whose name shows a tool made it. Versioned names
+stay in `work/` only, and older versions get deleted once a newer one ships. Set the title
+metadata to the same plain name.
+
+**Build every cover clean enough for an enterprise buyer.**
+
+1. Put the AccuKnox logo top left. Directly below it, left aligned: a small uppercase label for
+   the asset type, an H1 of 2 to 4 words, and one deck line at most. The long claim goes on
+   page 2. On a deck, the template cover (layout 0) stays, and its title follows the same 2 to
+   4 word limit.
+2. Use flat color only: navy with white and one blue, or white with navy and one blue. Use no
+   gradient anywhere on a cover, including art, rules, underlines, glows, fades and shadows.
+3. Use one line-art graphic that matches the topic, in the same two colors with one stroke
+   weight.
+4. Give the graphic its own zone: the top right quarter, or a bottom band of at most 45 percent
+   of the page height. It never sits behind, under or across text, stays inside the margins,
+   and keeps 12 mm (0.5 in on a slide) of empty space from the text.
+
 ## Hard rules for every deck
 
 ### 1. The cover and the closing slide already exist. Use them.
